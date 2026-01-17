@@ -24,6 +24,11 @@ A Rust-based REST API for managing users, built with Axum and SeaORM.
   ```
   cp .env.example .env
   ```
+  
+  If it exists, then delete `.env` first and then execute above command:
+  ```
+  rm -rf .env
+  ```
 
 2. Run database migrations from database folder
 
