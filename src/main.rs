@@ -1,17 +1,11 @@
 use std::error::Error;
 use std::sync::Arc;
 
-use axum::{
-    Router,
-    routing::{delete, get, post, put},
-};
+use axum::Router;
 
 use crate::{
-    handlers::users::{
-        create_user_handler, delete_user_by_id, find_user_by_id, search_users_handler,
-        update_user_by_id,
-    },
     repositories::users::UsersRepository,
+    routers::users::create_user_router,
     services::users::UsersService,
     state::{AppState, UserDependenciesState},
 };
@@ -36,11 +30,7 @@ async fn create_app() -> Router {
     };
 
     Router::new()
-        .route("/users", get(search_users_handler))
-        .route("/users", post(create_user_handler))
-        .route("/users/{id}", get(find_user_by_id))
-        .route("/users/{id}", delete(delete_user_by_id))
-        .route("/users/{id}", put(update_user_by_id))
+        .nest("/users", create_user_router())
         .with_state(state)
 }
 
